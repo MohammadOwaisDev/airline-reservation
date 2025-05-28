@@ -1,0 +1,98 @@
+create database NewAssignment;
+
+use NewAssignment;
+
+
+create table Service(
+Service_code varchar(30) Primary key,
+Service_name varchar(100),
+)
+
+create table Meals(
+Meal_code varchar(30) Primary key,
+Meal_name varchar(100),
+)
+
+create table Class_master(
+Class_code varchar(50) Primary key,
+Class_name varchar(100),
+)
+
+create table City_master(
+City_code varchar(30) primary key,
+City_name varchar(100),
+Country varchar(30),
+
+)
+
+create table Reservation(
+ PNR_No varchar(30) Primary key,
+ Aircraft_code varchar(30),
+ Journey_date Date,
+ Class_code varchar(30),
+ No_of_seats int,
+ Address varchar(100),
+ Contact_No varchar(30),
+ Status varchar(50)
+)
+
+create table Airline_Service(
+Aircode varchar(30),
+Service_code varchar(30),
+
+Primary key(Aircode,Service_code),
+Foreign key (Aircode) References Airlines_master(Aircode),
+Foreign key (Service_code) References Service(Service_code),
+
+)
+
+create table Airlines_master(
+Aircode varchar(30) primary key,
+Airline_name varchar(100),
+
+)
+
+create table Airlines_meals(
+Aircode varchar(30),
+Meal_code varchar(30),
+
+Primary key(Aircode,Meal_code),
+Foreign key (Aircode) References Airlines_master(Aircode),
+Foreign key (Meal_code) References Meals(Meal_code),
+
+)
+
+create table Flight_details(
+Aircraft_code varchar(30),
+Class_code varchar(30),
+Fare Decimal(10,2),
+Seats Int,
+
+Primary key(Aircraft_code,class_code)
+
+)
+
+CREATE TABLE Passenger (
+    PNR_No VARCHAR(30),
+    Ticket_No VARCHAR(30),
+    Name VARCHAR(50),
+    Age INT,
+    Sex VARCHAR(50),
+    PP_No VARCHAR(30),
+    Meal_pref VARCHAR(30),
+    PRIMARY KEY (PNR_No, Ticket_No),
+    FOREIGN KEY (PNR_No) REFERENCES Reservation(PNR_No),
+    FOREIGN KEY (Meal_pref) REFERENCES Meals(Meal_code)
+);
+
+
+Create table Category_master(
+Category_code varchar(30) primary key,
+Description varchar(100),
+
+)
+
+Create table Status_master(
+Status_code varchar(30) primary key,
+Description varchar(50),
+)
